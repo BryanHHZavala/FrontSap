@@ -20,7 +20,7 @@ const Navbar = () => {
             Carreras
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem tag={Link} to="/universidad/carrera1">Carrera 1</DropdownItem>
+            <DropdownItem tag={Link} to="/universidad/icc">ICC</DropdownItem>
             <DropdownItem tag={Link} to="/universidad/carrera2">Carrera 2</DropdownItem>
             <DropdownItem tag={Link} to="/universidad/carrera3">Carrera 3</DropdownItem>
             <DropdownItem tag={Link} to="/universidad/carrera3">Carrera 4</DropdownItem>
