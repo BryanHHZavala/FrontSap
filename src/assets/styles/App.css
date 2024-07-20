@@ -7,6 +7,24 @@
   pointer-events: none;
 }
 
+/* App.css */
+.vh-100 {
+  min-height: 100vh;
+}
+
+.card {
+  margin-top: 10%;
+  padding: 20px;
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000; /* Ajusta el valor según sea necesario */
+}
+
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

@@ -1,0 +1,51 @@
+/* src/styles/about.css */
+.form-container {
+  margin-top: 80px; 
+  max-width: 600px; /* Ajusta este valor según el ancho máximo que desees para el formulario */ /* Centra el formulario horizontalmente */
+}
+/* Ocultar las flechas en todos los navegadores */
+input[type=number] {
+  -webkit-appearance: none; /* Safari y Chrome */
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Opcional: Asegurarse de que las flechas se oculten correctamente en Safari */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Espacio entre cada grupo de formulario */
+}
+/* Ajusta el ancho del input de tipo number */
+input[type=number] {
+  width: 100%; /* O ajusta el ancho según tus necesidades */
+  box-sizing: border-box; /* Asegura que el ancho incluya el padding y el borde */
+  padding: 10px; /* Añade un padding para mejor apariencia */
+  margin-bottom: 10px; /* Espacio inferior entre los inputs */
+}
+
+/* Ajusta el ancho del input de tipo text */
+input[type=text] {
+  width: 100%; /* O ajusta el ancho según tus necesidades */
+  box-sizing: border-box; /* Asegura que el ancho incluya el padding y el borde */
+  padding: 10px; /* Añade un padding para mejor apariencia */
+  margin-bottom: 10px; /* Espacio inferior entre los inputs */
+}
+
+/* Ajusta el ancho del dropdown toggle */
+.dropdown-toggle {
+  width: 100%; /* O ajusta el ancho según tus necesidades */
+  box-sizing: border-box; /* Asegura que el ancho incluya el padding y el borde */
+  padding: 10px; /* Añade un padding para mejor apariencia */
+}
+
+.navbar-brand-img {
+  max-width: 120px; /* Ajusta el ancho máximo de la imagen del NavbarBrand */
+  height: auto; /* Mantiene la proporción de aspecto */
+  padding-top: 0%;
+  padding-bottom: 0%; /* Ajusta el padding alrededor de la imagen según sea necesario */
+  margin-left: 50%;
+}

@@ -1,0 +1,43 @@
+/* Estilo para el contenedor principal */
+.Container {
+    margin-top: 100px; /* Ajusta el valor según sea necesario para dejar suficiente espacio */
+    padding-top: 40px; /* Añade un espacio adicional si es necesario */
+  }
+  /* Estilo para el contenedor de cada clase */
+  .class-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  /* Franja superior con colores según el estado */
+  .class-status {
+    height: 10px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Estado por defecto (sin hora ni sección asignada) */
+  .class-status {
+    background-color: #ccc; /* Gris por defecto */
+  }
+  
+  /* Estado cuando la clase está seleccionada */
+  .class-status.selected {
+    background-color: #007bff; /* Azul cuando seleccionado */
+  }
+  
+  /* Estado cuando la clase tiene hora y sección asignada */
+  .class-status.assigned {
+    background-color: #28a745; /* Verde cuando asignada */
+  }
+  
+  /* Estilo para el formulario de asignación */
+  .class-form {
+    border: 1px solid #ccc;
+    padding: 10px; /* Asegura que el formulario también tenga padding */
+  }
+  
