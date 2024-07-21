@@ -9,6 +9,7 @@ const ICC = () => {
   const [formData, setFormData] = useState({ horaInicio: '', idcatedratico: '' });
   const [modalOpen, setModalOpen] = useState(false);
   const [catedraticos, setCatedraticos] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(''); // Estado para manejar errores
 
   useEffect(() => {
     // Función para obtener los datos de las clases
@@ -64,6 +65,7 @@ const ICC = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage(''); // Limpiar mensaje de error anterior
     if (selectedClass) {
       try {
         const response = await fetch(`http://localhost:5000/api/clases/${selectedClass.id_clase}`, {
@@ -74,6 +76,8 @@ const ICC = () => {
           body: JSON.stringify(formData)
         });
         if (!response.ok) {
+          const errorData = await response.json();
+          setErrorMessage(errorData.error || 'Error al actualizar la clase.');
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
@@ -181,6 +185,7 @@ const ICC = () => {
                     ))}
                   </Input>
                 </FormGroup>
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>} {/* Mostrar mensaje de error */}
                 <Button type="submit" color="primary">Actualizar</Button>
               </Form>
             )}
