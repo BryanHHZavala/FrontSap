@@ -114,7 +114,7 @@ const ICC = () => {
   }
 
   return (
-    <Container className="mt-5">
+    <Container style={{ marginTop: '6rem' }}>
       <Row>
         <Col sm="8">
           {data.map((blockData, index) => (

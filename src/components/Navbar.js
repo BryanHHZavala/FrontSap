@@ -33,6 +33,9 @@ const Navbar = () => {
         <NavItem>
           <NavLink tag={Link} to="/about">Acerca de</NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink tag={Link} to="/catedraticos">Catedraticos</NavLink>
+        </NavItem>
       </Nav>
     </RSNavbar>
   );

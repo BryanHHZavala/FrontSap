@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
+import Cate from "./pages/Catedraticos";
 import ICC from "./pages/icc";
 import React, { useState } from 'react';
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/" element={<PrivateRoute element={<Home />} auth={auth} />} />
           <Route path="/about" element={<PrivateRoute element={<About />} auth={auth} />} />
+          <Route path="/catedraticos" element={<PrivateRoute element={<Cate />} auth={auth} />} />
           <Route path="/universidad/icc" element={<PrivateRoute element={<ICC />} auth={auth} />} />
         </Routes>
         {auth && <Navbar />}
