@@ -3,13 +3,20 @@ import { Container, Row, Col, Card, CardBody, CardTitle, CardText, Spinner, Butt
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ICC = () => {
+  // Estado para almacenar los datos de las clases
   const [data, setData] = useState([]);
+  // Estado para manejar la carga de datos
   const [loading, setLoading] = useState(true);
+  // Estado para almacenar la clase seleccionada para edición
   const [selectedClass, setSelectedClass] = useState(null);
+  // Estado para manejar los datos del formulario
   const [formData, setFormData] = useState({ horaInicio: '', idcatedratico: '' });
+  // Estado para controlar la apertura y cierre del modal
   const [modalOpen, setModalOpen] = useState(false);
+  // Estado para almacenar los catedráticos disponibles
   const [catedraticos, setCatedraticos] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(''); // Estado para manejar errores
+  // Estado para manejar mensajes de error
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     // Función para obtener los datos de las clases
@@ -29,7 +36,7 @@ const ICC = () => {
     };
 
     fetchData();
-  }, []);
+  }, []); // Dependencias vacías, se ejecuta una vez al montar el componente
 
   useEffect(() => {
     // Función para obtener los catedráticos
@@ -47,8 +54,9 @@ const ICC = () => {
     };
 
     fetchCatedraticos();
-  }, []);
+  }, []); // Dependencias vacías, se ejecuta una vez al montar el componente
 
+  // Maneja la selección de una clase y abre el modal de edición
   const handleClassSelect = (classData) => {
     setSelectedClass(classData);
     setFormData({
@@ -58,11 +66,13 @@ const ICC = () => {
     setModalOpen(true);
   };
 
+  // Maneja los cambios en los campos del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Maneja el envío del formulario para actualizar la clase
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(''); // Limpiar mensaje de error anterior
@@ -91,6 +101,7 @@ const ICC = () => {
     }
   };
 
+  // Función para obtener los datos de las clases (se reutiliza en handleSubmit)
   const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/clases');
@@ -104,6 +115,7 @@ const ICC = () => {
     }
   };
 
+  // Muestra un spinner mientras se cargan los datos
   if (loading) {
     return (
       <Container className="text-center mt-5">
@@ -117,6 +129,7 @@ const ICC = () => {
     <Container style={{ marginTop: '6rem' }}>
       <Row>
         <Col sm="8">
+          {/* Muestra los bloques y clases */}
           {data.map((blockData, index) => (
             <div key={index}>
               <h2>Bloque {blockData.bloque}</h2>

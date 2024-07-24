@@ -1,9 +1,20 @@
 import React from 'react';
-import { Navbar as RSNavbar, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {
+  Navbar as RSNavbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/unicahlogo.png'; // Ruta de la imagen ajustada
+import logo from '../assets/images/unicahlogo.png';
+import { carreras, rutasEstáticas } from '../config/routesConfig';
 
-import '../assets/styles/about.css'; // Ruta del archivo CSS de estilos
+import '../assets/styles/about.css';
 
 const Navbar = () => {
   return (
@@ -20,26 +31,21 @@ const Navbar = () => {
             Carreras
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem tag={Link} to="/universidad/icc">ICC</DropdownItem>
-            <DropdownItem tag={Link} to="/universidad/carrera2">Carrera 2</DropdownItem>
-            <DropdownItem tag={Link} to="/universidad/carrera3">Carrera 3</DropdownItem>
-            <DropdownItem tag={Link} to="/universidad/carrera3">Carrera 4</DropdownItem>
-            <DropdownItem tag={Link} to="/universidad/carrera3">Carrera 5</DropdownItem>
-            <DropdownItem tag={Link} to="/universidad/carrera3">Carrera 6</DropdownItem>
-            <DropdownItem tag={Link} to="/universidad/carrera3">Carrera 7</DropdownItem>
-            {/* Agrega más DropdownItem según sea necesario */}
+            {carreras.map((carrera, index) => (
+              <DropdownItem key={index} tag={Link} to={carrera.path}>
+                {carrera.name}
+              </DropdownItem>
+            ))}
           </DropdownMenu>
         </UncontrolledDropdown>
-        <NavItem>
-          <NavLink tag={Link} to="/about">Acerca de</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to="/catedraticos">Catedraticos</NavLink>
-        </NavItem>
+        {rutasEstáticas.map((ruta, index) => (
+          <NavItem key={index}>
+            <NavLink tag={Link} to={ruta.path}>{ruta.name}</NavLink>
+          </NavItem>
+        ))}
       </Nav>
     </RSNavbar>
   );
 };
 
 export default Navbar;
-
