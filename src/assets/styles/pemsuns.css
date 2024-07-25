@@ -1,0 +1,36 @@
+.card-custom {
+    border: 2px solid #c91e1e;
+    border-radius: 5px;
+    transition: transform 0.2s, border-color 0.2s;;
+    cursor: pointer;
+    overflow: hidden; 
+  }
+  
+  .card-custom:hover {
+    transform: scale(1.05);
+    border-color: #007bff;
+  }
+  
+  .card-header-custom {
+    height: 5px;
+  }
+  
+  .card-title-custom {
+    font-weight: bold;
+  }
+  
+  .card-text-custom {
+    margin-bottom: 0.5rem;
+  }
+  
+  .spinner-container {
+    margin-top: 6rem;
+  }
+  
+  .modal-custom {
+    max-width: 600px;
+  }
+  
+  .alert-custom {
+    margin-top: 1rem;
+  }
