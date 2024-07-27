@@ -1,25 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, CardBody, CardTitle, CardText, Spinner, Button, Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/styles/pemsuns.css';
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  Spinner,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../assets/styles/pemsuns.css";
 
 const ICC = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedClass, setSelectedClass] = useState(null);
-  const [formData, setFormData] = useState({ horaInicio: '', idcatedratico: '' });
+  const [formData, setFormData] = useState({
+    horaInicio: "",
+    idcatedratico: "",
+  });
   const [modalOpen, setModalOpen] = useState(false);
   const [catedraticos, setCatedraticos] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/clases');
-      if (!response.ok) throw new Error('Network response was not ok');
+      const response = await fetch("http://localhost:5000/api/clases");
+      if (!response.ok) throw new Error("Network response was not ok");
       const result = await response.json();
       setData(result);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
@@ -32,12 +52,12 @@ const ICC = () => {
   useEffect(() => {
     const fetchCatedraticos = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/catedraticos/');
-        if (!response.ok) throw new Error('Network response was not ok');
+        const response = await fetch("http://localhost:5000/api/catedraticos/");
+        if (!response.ok) throw new Error("Network response was not ok");
         const result = await response.json();
         setCatedraticos(result);
       } catch (error) {
-        console.error('Error fetching catedraticos:', error);
+        console.error("Error fetching catedraticos:", error);
       }
     };
 
@@ -47,8 +67,8 @@ const ICC = () => {
   const handleClassSelect = (classData) => {
     setSelectedClass(classData);
     setFormData({
-      horaInicio: classData.horaInicio || '',
-      idcatedratico: classData.idcatedratico || ''
+      horaInicio: classData.horaInicio || "",
+      idcatedratico: classData.idcatedratico || "",
     });
     setModalOpen(true);
   };
@@ -60,27 +80,30 @@ const ICC = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
+    setErrorMessage("");
     if (selectedClass) {
       try {
-        const response = await fetch(`http://localhost:5000/api/clases/${selectedClass.id_clase}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
+        const response = await fetch(
+          `http://localhost:5000/api/clases/${selectedClass.id_clase}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
         if (!response.ok) {
           const errorData = await response.json();
-          setErrorMessage(errorData.error || 'Error al actualizar la clase.');
-          throw new Error('Network response was not ok');
+          setErrorMessage(errorData.error || "Error al actualizar la clase.");
+          throw new Error("Network response was not ok");
         }
         const result = await response.json();
-        console.log('Clase actualizada:', result);
+        console.log("Clase actualizada:", result);
         await fetchData();
         setModalOpen(false);
       } catch (error) {
-        console.error('Error updating class:', error);
+        console.error("Error updating class:", error);
       }
     }
   };
@@ -95,7 +118,7 @@ const ICC = () => {
   }
 
   return (
-    <Container style={{ marginTop: '6rem' }}>
+    <Container style={{ marginTop: "6rem" }}>
       <Row>
         <Col sm="8">
           {data.map((blockData, index) => (
@@ -108,22 +131,39 @@ const ICC = () => {
                       onClick={() => handleClassSelect(classData)}
                       className="card-custom"
                       style={{
-                        borderColor: selectedClass?.id_clase === classData.id_clase ? 'blue' : 'transparent'
+                        borderColor:
+                          selectedClass?.id_clase === classData.id_clase
+                            ? "blue"
+                            : "transparent",
                       }}
                     >
                       <div
                         className="card-header-custom"
                         style={{
-                          backgroundColor: classData.horaInicio ? 'green' : 'gray'
+                          backgroundColor: classData.horaInicio
+                            ? "green"
+                            : "gray",
                         }}
                       />
                       <CardBody>
-                        <CardTitle className="card-title-custom" tag="h5">{classData.nombreclase}</CardTitle>
-                        <CardText className="card-text-custom">ID Clase: {classData.id_clase}</CardText>
-                        <CardText className="card-text-custom">Créditos: {classData.creditos}</CardText>
-                        <CardText className="card-text-custom">Hora Inicio: {classData.horaInicio || 'No asignada'}</CardText>
-                        <CardText className="card-text-custom">Catedrático: {classData.catedratico || 'No asignado'}</CardText>
-                        <Button onClick={() => handleClassSelect(classData)}>Seleccionar Clase</Button>
+                        <CardTitle className="card-title-custom" tag="h5">
+                          {classData.nombreclase}
+                        </CardTitle>
+                        <CardText className="card-text-custom">
+                          ID Clase: {classData.id_clase}
+                        </CardText>
+                        <CardText className="card-text-custom">
+                          Créditos: {classData.creditos}
+                        </CardText>
+                        <CardText className="card-text-custom">
+                          Hora Inicio: {classData.horaInicio || "No asignada"}
+                        </CardText>
+                        <CardText className="card-text-custom">
+                          Catedrático: {classData.catedratico || "No asignado"}
+                        </CardText>
+                        <Button onClick={() => handleClassSelect(classData)}>
+                          Seleccionar Clase
+                        </Button>
                       </CardBody>
                     </Card>
                   </Col>
@@ -133,8 +173,14 @@ const ICC = () => {
           ))}
         </Col>
 
-        <Modal isOpen={modalOpen} toggle={() => setModalOpen(false)} className="modal-custom">
-          <ModalHeader toggle={() => setModalOpen(false)}>Actualizar Clase</ModalHeader>
+        <Modal
+          isOpen={modalOpen}
+          toggle={() => setModalOpen(false)}
+          className="modal-custom"
+        >
+          <ModalHeader toggle={() => setModalOpen(false)}>
+            Actualizar Clase
+          </ModalHeader>
           <ModalBody>
             {selectedClass && (
               <Form onSubmit={handleSubmit}>
@@ -159,15 +205,32 @@ const ICC = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Seleccionar Catedrático</option>
-                    {catedraticos.map(c => (
+                    {catedraticos.map((c) => (
                       <option key={c.idcatedratico} value={c.idcatedratico}>
                         {c.nombrecatedratico}
                       </option>
                     ))}
                   </Input>
                 </FormGroup>
-                {errorMessage && <div className="alert alert-danger alert-custom">{errorMessage}</div>}
-                <Button type="submit" color="primary">Actualizar</Button>
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      type="checkbox"
+                      name="addSection"
+                      checked={formData.addSection || false}
+                      onChange={handleInputChange}
+                    />
+                    Agregar Sección
+                  </Label>
+                </FormGroup>
+                {errorMessage && (
+                  <div className="alert alert-danger alert-custom">
+                    {errorMessage}
+                  </div>
+                )}
+                <Button type="submit" color="primary">
+                  Actualizar
+                </Button>
               </Form>
             )}
           </ModalBody>

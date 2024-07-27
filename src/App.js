@@ -23,7 +23,7 @@ function App() {
           <Route path="/" element={<PrivateRoute element={<Home />} auth={auth} />} />
           <Route path="/about" element={<PrivateRoute element={<About />} auth={auth} />} />
           <Route path="/catedraticos" element={<PrivateRoute element={<Cate />} auth={auth} />} />
-          <Route path="/universidad/icc" element={<PrivateRoute element={<ICC />} auth={auth} />} />
+          <Route path="/universidad/sistemas" element={<PrivateRoute element={<ICC />} auth={auth} />} />
         </Routes>
         {auth && <Navbar />}
       </div>
