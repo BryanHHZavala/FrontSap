@@ -31,6 +31,7 @@ const ICC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [catedraticos, setCatedraticos] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchData = async () => {
     try {
@@ -78,6 +79,10 @@ const ICC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
@@ -108,6 +113,15 @@ const ICC = () => {
     }
   };
 
+  const filteredData = data
+  .map(blockData => ({
+    ...blockData,
+    clases: blockData.clases.filter(classData =>
+      (classData.nombreclase || "").toLowerCase().includes(searchTerm.toLowerCase())
+    ),
+  }))
+  .filter(blockData => blockData.clases.length > 0);
+
   if (loading) {
     return (
       <Container className="text-center spinner-container">
@@ -118,15 +132,28 @@ const ICC = () => {
   }
 
   return (
-    <Container style={{ marginTop: "6rem" }}>
+    <Container fluid style={{ marginTop: "6rem" }}>
       <Row>
-        <Col sm="8">
-          {data.map((blockData, index) => (
+        <Col sm="12" className="mb-4">
+          <FormGroup>
+            <Label for="searchInput">Buscar Clase</Label>
+            <Input
+              type="text"
+              id="searchInput"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Ingrese nombre de clase"
+            />
+          </FormGroup>
+        </Col>
+
+        <Col sm="12">
+          {filteredData.map((blockData, index) => (
             <div key={index}>
               <h2>Bloque {blockData.bloque}</h2>
               <Row>
                 {blockData.clases.map((classData, idx) => (
-                  <Col sm="4" key={idx} className="mb-4">
+                  <Col sm="3" key={idx} className="mb-4">
                     <Card
                       onClick={() => handleClassSelect(classData)}
                       className="card-custom"
