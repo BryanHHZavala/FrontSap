@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Cate from "./pages/Catedraticos";
 import ICC from "./pages/icc";
 import React, { useState } from 'react';
+import CIVIL from './pages/civil';
 
 const PrivateRoute = ({ element, auth }) => {
   return auth ? element : <Navigate to="/login" />;
@@ -24,6 +25,7 @@ function App() {
           <Route path="/about" element={<PrivateRoute element={<About />} auth={auth} />} />
           <Route path="/catedraticos" element={<PrivateRoute element={<Cate />} auth={auth} />} />
           <Route path="/universidad/sistemas" element={<PrivateRoute element={<ICC />} auth={auth} />} />
+          <Route path="/universidad/civil" element={<PrivateRoute element={<CIVIL />} auth={auth} />} />
         </Routes>
         {auth && <Navbar />}
       </div>

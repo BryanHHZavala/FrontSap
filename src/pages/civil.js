@@ -20,7 +20,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/styles/pemsuns.css";
 
-const ICC = () => {
+const CIVIL = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedClass, setSelectedClass] = useState(null);
@@ -32,7 +32,7 @@ const ICC = () => {
   const [catedraticos, setCatedraticos] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [idCarrera, setIdCarrera] = useState("C001"); // Estado para ID de la carrera
+  const [idCarrera, setIdCarrera] = useState("C002"); // Estado para ID de la carrera
 
   // Función para obtener datos de clases
   const fetchData = async (idCarrera) => {
@@ -270,4 +270,4 @@ const ICC = () => {
   );
 };
 
-export default ICC;
+export default CIVIL;
