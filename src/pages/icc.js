@@ -32,12 +32,12 @@ const ICC = () => {
   const [catedraticos, setCatedraticos] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [idCarrera, setIdCarrera] = useState("C001"); // Estado para ID de la carrera
+  //const [idCarrera, setIdCarrera] = useState("C001"); // Estado para ID de la carrera
 
   // Función para obtener datos de clases
-  const fetchData = async (idCarrera) => {
+  const fetchData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/clases/${idCarrera}`);
+      const response = await fetch(`http://localhost:5000/api/clases/C001`);
       if (!response.ok) throw new Error("Network response was not ok");
       const result = await response.json();
       setData(result);
@@ -50,8 +50,8 @@ const ICC = () => {
 
   // Llamar a fetchData con el ID de la carrera
   useEffect(() => {
-    fetchData(idCarrera);
-  }, [idCarrera]); // Dependencia en idCarrera para que se actualice cuando cambie
+    fetchData();
+  }, []); // Dependencia en idCarrera para que se actualice cuando cambie
 
   useEffect(() => {
     const fetchCatedraticos = async () => {
@@ -108,7 +108,7 @@ const ICC = () => {
         }
         const result = await response.json();
         console.log("Clase actualizada:", result);
-        await fetchData(idCarrera); // Actualiza los datos después de la modificación
+        await fetchData(); // Actualiza los datos después de la modificación
         setModalOpen(false);
       } catch (error) {
         console.error("Error updating class:", error);
