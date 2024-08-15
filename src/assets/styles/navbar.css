@@ -1,7 +1,40 @@
 .navbar {
     max-width: 100%;
-    margin: 0 auto;
-    padding-top: 0%; /* Ajusta el padding superior */
-    padding-bottom: 0%; /* Ajusta el padding inferior */
+    margin: 0px auto;
+    padding-top: 0.5%; /* Ajusta el padding superior */
+    padding-bottom: 0.5%; /* Ajusta el padding inferior */
 }
+/* Fondo azul oscuro con texto blanco */
+.navbar-custom {
+    background-color: #003366; /* Azul oscuro */
+    color: #ffffff; /* Texto blanco */
+  }
+  
+  /* Fondo degradado */
+  .navbar-gradient {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+  }
+  
+  /* Fondo azul claro con texto blanco */
+  .navbar-light-custom {
+    background-color: #17a2b8; /* Azul claro */
+    color: #ffffff; /* Texto blanco */
+  }
+  
+  /* Estilos adicionales para el texto del navbar */
+  .navbar-custom .navbar-brand, 
+  .navbar-custom .nav-link {
+    color: #ffffff; /* Texto blanco */
+  }
+  
+  .navbar-gradient .navbar-brand, 
+  .navbar-gradient .nav-link {
+    color: #ffffff; /* Texto blanco */
+  }
+  
+  .navbar-light-custom .navbar-brand, 
+  .navbar-light-custom .nav-link {
+    color: #ffffff; /* Texto blanco */
+  }
+  
   

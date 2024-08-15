@@ -7,10 +7,11 @@ export const carreras = [
   { path: "/universidad/gestion", name: "GESTION" },
   { path: "/universidad/industrial", name: "INDUSTRIAL" },
   { path: "/universidad/derecho", name: "DERECHO" },
+  
   // Agrega más carreras según sea necesario
 ];
 
 export const rutasEstáticas = [
-  { path: "/about", name: "Periodos" },
+  { path: "/periodos", name: "Periodos" },
   { path: "/catedraticos", name: "Catedraticos" },
 ];

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; // Importa React y los hooks useEffect y useState
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -16,161 +16,148 @@ import {
   FormGroup,
   Label,
   Input,
-} from "reactstrap"; // Importa componentes de reactstrap para diseño y formularios
-import "bootstrap/dist/css/bootstrap.min.css"; // Importa los estilos de Bootstrap
-import "../assets/styles/pemsuns.css"; // Importa estilos personalizados
-import { ToastContainer, toast } from "react-toastify"; // Importa componentes para notificaciones
+} from "reactstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../assets/styles/pemsuns.css";
+import { ToastContainer, toast } from "react-toastify";
 
-const ICC = () => {
-  // Define el componente funcional ICC
-  const [data, setData] = useState([]); // Estado para almacenar datos de las clases
-  const [loading, setLoading] = useState(true); // Estado para manejar el estado de carga
-  const [selectedClass, setSelectedClass] = useState(null); // Estado para la clase seleccionada
+const DERECHO = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedClass, setSelectedClass] = useState(null);
   const [formData, setFormData] = useState({
-    // Estado para los datos del formulario
     horaInicio: "",
     idcatedratico: "",
     id_periodo: "",
   });
-  const [modalOpen, setModalOpen] = useState(false); // Estado para controlar la visibilidad del modal
-  const [catedraticos, setCatedraticos] = useState([]); // Estado para almacenar catedráticos
-  const [errorMessage, setErrorMessage] = useState(""); // Estado para mensajes de error
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
-  const [periodos, setPeriodos] = useState([]); // Estado para almacenar periodos
-  const [selectedPeriodo, setSelectedPeriodo] = useState(""); // Estado para el periodo seleccionado
+  const [modalOpen, setModalOpen] = useState(false);
+  const [catedraticos, setCatedraticos] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [periodos, setPeriodos] = useState([]);
+  const [selectedPeriodo, setSelectedPeriodo] = useState("");
 
-  // Función para obtener datos de clases desde la API
-  //muestra las clases por periodo y por carrera
+  // Función para obtener datos de clases
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3300/api/carreras/IF01002/${selectedPeriodo}`
-      ); // Realiza una solicitud a la API con el periodo seleccionado
-      if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
-      const result = await response.json(); // Convierte la respuesta en JSON
-      console.log("Datos de clases:", result); // Muestra los datos en la consola
-      setData(result || []); // Establece los datos obtenidos en el estado
+        `http://localhost:3300/api/carreras/LG01002/${selectedPeriodo}`
+      );
+      if (!response.ok) throw new Error("Network response was not ok");
+      const result = await response.json();
+      console.log("Datos de clases:", result); // Verifica la estructura de los datos
+      setData(result || []); // Asegúrate de que `data` sea un array
     } catch (error) {
-      console.error("Error fetching data:", error); // Maneja errores durante la obtención de datos
+      console.error("Error fetching data:", error);
     } finally {
-      setLoading(false); // Finaliza el estado de carga
+      setLoading(false);
     }
   };
 
-  //mustra las clases segun el periodo seleccionado
   useEffect(() => {
-    fetchData(); // Llama a fetchData cuando cambia el periodo seleccionado
-  }, [selectedPeriodo]);
+    fetchData();
+  }, [selectedPeriodo]); // Dependencia en `selectedPeriodo` para actualizar datos al cambiar el período
 
-  //este useEffect obtiene los catedraticos para el modal
   useEffect(() => {
     const fetchCatedraticos = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/catedraticos"); // Solicita datos de catedráticos
-        if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
-        const result = await response.json(); // Convierte la respuesta en JSON
-        setCatedraticos(result || []); // Establece los datos de catedráticos en el estado
+        const response = await fetch("http://localhost:3300/api/catedraticos");
+        if (!response.ok) throw new Error("Network response was not ok");
+        const result = await response.json();
+        setCatedraticos(result || []); // Asegúrate de que `catedraticos` sea un array
       } catch (error) {
-        console.error("Error fetching catedraticos:", error); // Maneja errores durante la obtención de catedráticos
+        console.error("Error fetching catedraticos:", error);
       }
     };
-    fetchCatedraticos(); // Llama a fetchCatedraticos al montar el componente
+
+    fetchCatedraticos();
   }, []);
 
-  //obtiene los periodos y los ordena
   useEffect(() => {
     const fetchPeriodos = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/getPeriodos"); // Solicita datos de periodos
-        if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
-        const result = await response.json(); // Convierte la respuesta en JSON
-        setPeriodos(result || []); // Establece los datos de periodos en el estado
+        const response = await fetch("http://localhost:3300/api/getPeriodos");
+        if (!response.ok) throw new Error("Network response was not ok");
+        const result = await response.json();
+        setPeriodos(result || []); // Asegúrate de que `periodos` sea un array
         if (result.length > 0) {
-          setSelectedPeriodo(result[0].id_periodo); // Establece el primer periodo como seleccionado por defecto
+          setSelectedPeriodo(result[0].id_periodo); // Establece el primer período como seleccionado por defecto
           setFormData((prevData) => ({
             ...prevData,
-            id_periodo: result[0].id_periodo, // Actualiza id_periodo en el estado del formulario
+            id_periodo: result[0].id_periodo, // Establecer id_periodo por defecto
           }));
         }
       } catch (error) {
-        console.error("Error fetching periodos:", error); // Maneja errores durante la obtención de periodos
+        console.error("Error fetching periodos:", error);
       }
     };
-    fetchPeriodos(); // Llama a fetchPeriodos al montar el componente
+
+    fetchPeriodos();
   }, []);
 
-  // Función para manejar la selección de una clase
   const handleClassSelect = (classData) => {
-    setSelectedClass(classData); // Establece la clase seleccionada en el estado
+    setSelectedClass(classData);
     setFormData({
       horaInicio: classData.hora_inicio || "",
       idcatedratico: classData.id_catedratico || "",
       id_periodo: formData.id_periodo || "",
-    }); // Actualiza el estado del formulario con los datos de la clase seleccionada
-    setModalOpen(true); // Abre el modal
+    });
+    setModalOpen(true);
   };
 
-  // Función para manejar cambios en los inputs del formulario
   const handleInputChange = (e) => {
-    const { name, value } = e.target; // Obtiene el nombre y valor del input
-    setFormData({ ...formData, [name]: value }); // Actualiza el estado del formulario
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Función para manejar cambios en el campo de búsqueda
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value); // Actualiza el término de búsqueda en el estado
+    setSearchTerm(e.target.value);
   };
 
-  // Función para manejar el envío del formulario
-
-  // para agregar una nueva seccion, clases que esten en gris
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Previene el comportamiento por defecto del formulario
-    setErrorMessage(""); // Limpia el mensaje de error
+    e.preventDefault();
+    setErrorMessage("");
     if (selectedClass) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/detalle_periodo`, // Ruta de la API para actualizar detalles
+          `http://localhost:3300/api/detalle_periodo`, // Ruta actualizada
           {
-            method: "POST", // Método HTTP para enviar datos
+            method: "POST",
             headers: {
-              "Content-Type": "application/json", // Tipo de contenido de la solicitud
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              id_clase: selectedClass.id_clase, //al momento de seleccionar una clase
-              hora_inicio: formData.horaInicio, //mediante el modal
-              id_catedratico: formData.idcatedratico, //mediante el modal
-              id_periodo: formData.id_periodo, //por defecto
-            }), // Datos a enviar en el cuerpo de la solicitud
+              id_clase: selectedClass.id_clase,
+              hora_inicio: formData.horaInicio,
+              id_catedratico: formData.idcatedratico,
+              id_periodo: formData.id_periodo,
+            }),
           }
         );
         if (!response.ok) {
-          const errorData = await response.json(); // Convierte la respuesta de error en JSON
-          setErrorMessage(errorData.error || "Error al actualizar la clase."); // Establece el mensaje de error
-          throw new Error("Network response was not ok"); // Lanza un error si la respuesta no es correcta
+          const errorData = await response.json();
+          setErrorMessage(errorData.error || "Error al actualizar la clase.");
+          throw new Error("Network response was not ok");
         }
-        const result = await response.json(); // Convierte la respuesta en JSON
-        console.log("Clase actualizada:", result); // Muestra los datos actualizados en la consola
-        toast.success("Clase actualizada correctamente."); // Muestra una notificación de éxito
+        const result = await response.json();
+        console.log("Clase actualizada:", result);
+        toast.success("Clase actualizada correctamente."); // Notificación de éxito
         await fetchData(); // Actualiza los datos después de la modificación
-        setModalOpen(false); // Cierra el modal
+        setModalOpen(false);
       } catch (error) {
-        console.error("Error updating class:", error); // Maneja errores durante la actualización
+        console.error("Error updating class:", error);
       }
     }
   };
-
-  // Función para manejar la actualización de una clase
-  // para clases que esten en verde y se deban actualizar
   const handleUpdateClass = async () => {
     if (selectedClass) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/actualizar_seccion`, // Ruta de la API para actualizar sección
+          `http://localhost:3300/api/actualizar_seccion`, // Ruta de la API para actualizar
           {
-            method: "PUT", // Método HTTP para actualizar datos
+            method: "PUT", // Cambia a PUT si estás actualizando datos
             headers: {
-              "Content-Type": "application/json", // Tipo de contenido de la solicitud
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               id_clase: selectedClass.id_clase,
@@ -178,59 +165,57 @@ const ICC = () => {
               id_catedratico: formData.idcatedratico,
               id_periodo: selectedPeriodo.id_periodo,
               seccion: formData.seccion,
-            }), // Datos a enviar en el cuerpo de la solicitud
+            }),
           }
         );
         if (!response.ok) {
-          const errorData = await response.json(); // Convierte la respuesta de error en JSON
-          setErrorMessage(errorData.error || "Error al actualizar la clase."); // Establece el mensaje de error
-          throw new Error("Network response was not ok"); // Lanza un error si la respuesta no es correcta
+          const errorData = await response.json();
+          setErrorMessage(errorData.error || "Error al actualizar la clase.");
+          throw new Error("Network response was not ok");
         }
-        const result = await response.json(); // Convierte la respuesta en JSON
-        console.log("Clase actualizada:", result); // Muestra los datos actualizados en la consola
-        toast.success("Clase actualizada correctamente."); // Muestra una notificación de éxito
+        const result = await response.json();
+        console.log("Clase actualizada:", result);
+        toast.success("Clase actualizada correctamente.");
         await fetchData(); // Actualiza los datos después de la modificación
-        setModalOpen(false); // Cierra el modal
+        setModalOpen(false);
       } catch (error) {
-        console.error("Error updating class:", error); // Maneja errores durante la actualización
+        console.error("Error updating class:", error);
       }
     }
   };
 
-  // Función para manejar la eliminación de una sección
   const handleDeleteSection = async () => {
     if (selectedClass && formData.seccion && selectedPeriodo) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/carreras/${selectedPeriodo}`, // Ruta de la API para eliminar sección
+          `http://localhost:3300/api/carreras/${selectedPeriodo}`, // Solo el periodo en la ruta
           {
-            method: "DELETE", // Método HTTP para eliminar datos
+            method: "DELETE",
             headers: {
-              "Content-Type": "application/json", // Tipo de contenido de la solicitud
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               id_clase: selectedClass.id_clase,
               id_seccion: formData.seccion,
-            }), // Datos a enviar en el cuerpo de la solicitud
+            }),
           }
         );
         if (!response.ok) {
-          const errorData = await response.json(); // Convierte la respuesta de error en JSON
-          setErrorMessage(errorData.error || "Error al eliminar la sección."); // Establece el mensaje de error
-          throw new Error("Network response was not ok"); // Lanza un error si la respuesta no es correcta
+          const errorData = await response.json();
+          setErrorMessage(errorData.error || "Error al eliminar la sección.");
+          throw new Error("Network response was not ok");
         }
-        toast.success("Sección eliminada correctamente."); // Muestra una notificación de éxito
+        toast.success("Sección eliminada correctamente."); // Notificación de éxito
         await fetchData(); // Actualiza los datos después de la eliminación
-        setModalOpen(false); // Cierra el modal
+        setModalOpen(false);
       } catch (error) {
-        console.error("Error deleting section:", error); // Maneja errores durante la eliminación
+        console.error("Error deleting section:", error);
       }
     } else {
-      setErrorMessage("Por favor, seleccione una clase y una sección."); // Mensaje de error si no se selecciona clase o sección
+      setErrorMessage("Por favor, seleccione una clase y una sección.");
     }
   };
 
-  // Filtra los datos según el término de búsqueda
   const filteredData = (data || [])
     .map((blockData) => ({
       ...blockData,
@@ -242,23 +227,21 @@ const ICC = () => {
     }))
     .filter((blockData) => (blockData.clases || []).length > 0);
 
-  // Muestra un spinner y mensaje de carga mientras se obtienen los datos
   if (loading) {
     return (
       <Container className="text-center spinner-container">
-        <Spinner color="primary" /> {/* Spinner de carga */}
-        <p>Loading...</p> {/* Mensaje de carga */}
+        <Spinner color="primary" />
+        <p>Loading...</p>
       </Container>
     );
   }
 
-  // Renderiza el componente
   return (
     <Container className="page-container" fluid style={{ marginTop: "6rem" }}>
       <Row>
         <Col sm="12">
           <div className="headerBanner">
-            Ingeniería en Ciencias de la Computación
+            Derecho
           </div>
         </Col>
       </Row>
@@ -279,22 +262,20 @@ const ICC = () => {
                 style={{ width: "100%" }}
               />
             </Col>
-
             <Col sm="6">
               <FormGroup>
                 <Label for="periodoSelect" className="form-label-custom">
                   Periodo Actual
                 </Label>
-
                 <Input
                   type="select"
                   id="periodoSelect"
                   value={selectedPeriodo}
                   onChange={(e) => {
-                    setSelectedPeriodo(e.target.value); // Actualiza el periodo seleccionado
+                    setSelectedPeriodo(e.target.value);
                     setFormData((prevData) => ({
                       ...prevData,
-                      id_periodo: e.target.value, // Actualiza id_periodo en el estado del formulario
+                      id_periodo: e.target.value, // Actualizar id_periodo
                     }));
                   }}
                 >
@@ -312,13 +293,12 @@ const ICC = () => {
         <Col sm="12">
           {filteredData.map((blockData, index) => (
             <div key={index}>
-              <h2>Bloque {blockData.bloque}</h2> {/* Muestra el bloque */}
-
+              <h2>Bloque {blockData.bloque}</h2>
               <Row>
                 {(blockData.clases || []).map((classData, idx) => (
                   <Col sm="3" key={idx} className="mb-4">
                     <Card
-                      onClick={() => handleClassSelect(classData)} // Maneja la selección de clase
+                      onClick={() => handleClassSelect(classData)}
                       className="card-custom"
                       style={{
                         borderColor:
@@ -327,7 +307,6 @@ const ICC = () => {
                             : "transparent",
                       }}
                     >
-
                       <div
                         className="card-header-custom"
                         style={{
@@ -343,7 +322,6 @@ const ICC = () => {
                               : "gray",
                         }}
                       />
-
                       <CardBody>
                         <CardTitle className="card-title-custom" tag="h5">
                           {classData.nombre_clase}
@@ -365,7 +343,6 @@ const ICC = () => {
                           <p>No hay secciones asignadas.</p>
                         )}
                       </CardBody>
-
                     </Card>
                   </Col>
                 ))}
@@ -379,23 +356,19 @@ const ICC = () => {
         <ModalHeader toggle={() => setModalOpen(!modalOpen)}>
           Actualizar Clase
         </ModalHeader>
-
         <ModalBody>
           <Form onSubmit={handleSubmit}>
-
             <FormGroup>
               <Label for="horaInicio">Hora de Inicio</Label>
               <Input
                 type="text"
                 id="horaInicio"
                 name="horaInicio"
-                placeholder="HH:MM:SS"
                 value={formData.horaInicio}
                 onChange={handleInputChange}
                 required
               />
             </FormGroup>
-
             <FormGroup>
               <Label for="idcatedratico">Catedrático</Label>
               <Input
@@ -417,23 +390,20 @@ const ICC = () => {
                 ))}
               </Input>
             </FormGroup>
-
             <FormGroup>
               <Label for="seccion">Sección</Label>
               <Input
                 type="text"
-                placeholder="Solo para eliminar y actualizar seccion "
+                placeholder="Solo para eliminar seccion"
                 id="seccion"
                 name="seccion"
                 value={formData.seccion || ""}
                 onChange={handleInputChange}
               />
             </FormGroup>
-            
             <Button color="primary" type="submit">
               Agregar
             </Button>{" "}
-
             <Button
               color="danger"
               onClick={handleDeleteSection}
@@ -441,22 +411,23 @@ const ICC = () => {
             >
               Eliminar
             </Button>{" "}
-
+            <Button color="secondary" onClick={() => setModalOpen(false)}>
+              Cancelar
+            </Button>{" "}
             <Button
               color="success"
               onClick={handleUpdateClass} // Nuevo botón para actualizar clase
             >
               Actualizar
             </Button>
-            
           </Form>
-          {errorMessage && <p className="text-danger">{errorMessage}</p>}{" "}
-          {/* Muestra mensaje de error si existe */}
+          {errorMessage && <p className="text-danger">{errorMessage}</p>}
         </ModalBody>
       </Modal>
-      <ToastContainer /> {/* Contenedor para notificaciones */}
+
+      <ToastContainer />
     </Container>
   );
 };
 
-export default ICC; // Exporta el componente ICC
+export default DERECHO;

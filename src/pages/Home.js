@@ -5,6 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../assets/styles/Home.css";
 import { carreras } from "../config/routesConfig";
 
+
 const Home = () => {
   return (
     <>
