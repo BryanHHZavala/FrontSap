@@ -44,7 +44,7 @@ const ICC = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3300/api/carreras/IF01002/${selectedPeriodo}`
+        `https://apiclasessap-lygw.onrender.com/api/carreras/IF01002/${selectedPeriodo}`
       ); // Realiza una solicitud a la API con el periodo seleccionado
       if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
       const result = await response.json(); // Convierte la respuesta en JSON
@@ -66,7 +66,7 @@ const ICC = () => {
   useEffect(() => {
     const fetchCatedraticos = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/catedraticos"); // Solicita datos de catedráticos
+        const response = await fetch("https://apiclasessap-lygw.onrender.com/api/catedraticos"); // Solicita datos de catedráticos
         if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
         const result = await response.json(); // Convierte la respuesta en JSON
         setCatedraticos(result || []); // Establece los datos de catedráticos en el estado
@@ -81,7 +81,7 @@ const ICC = () => {
   useEffect(() => {
     const fetchPeriodos = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/getPeriodos"); // Solicita datos de periodos
+        const response = await fetch("https://apiclasessap-lygw.onrender.com/api/getPeriodos"); // Solicita datos de periodos
         if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
         const result = await response.json(); // Convierte la respuesta en JSON
         setPeriodos(result || []); // Establece los datos de periodos en el estado
@@ -130,7 +130,7 @@ const ICC = () => {
     if (selectedClass) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/detalle_periodo`, // Ruta de la API para actualizar detalles
+          `https://apiclasessap-lygw.onrender.com/api/detalle_periodo`, // Ruta de la API para actualizar detalles
           {
             method: "POST", // Método HTTP para enviar datos
             headers: {
@@ -166,7 +166,7 @@ const ICC = () => {
     if (selectedClass) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/actualizar_seccion`, // Ruta de la API para actualizar sección
+          `https://apiclasessap-lygw.onrender.com/api/actualizar_seccion`, // Ruta de la API para actualizar sección
           {
             method: "PUT", // Método HTTP para actualizar datos
             headers: {
@@ -202,7 +202,7 @@ const ICC = () => {
     if (selectedClass && formData.seccion && selectedPeriodo) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/carreras/${selectedPeriodo}`, // Ruta de la API para eliminar sección
+          `https://apiclasessap-lygw.onrender.com/api/carreras/${selectedPeriodo}`, // Ruta de la API para eliminar sección
           {
             method: "DELETE", // Método HTTP para eliminar datos
             headers: {
