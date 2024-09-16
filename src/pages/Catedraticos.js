@@ -27,7 +27,7 @@ const Catedraticos = () => {
   useEffect(() => {
     const fetchCatedraticos = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/catedraticos");
+        const response = await fetch("https://apiclasessap-lygw.onrender.com/api/catedraticos");
         if (!response.ok) throw new Error("Network response was not ok");
         const result = await response.json();
         console.log("Catedraticos:", result);

@@ -66,7 +66,9 @@ const ICC = () => {
   useEffect(() => {
     const fetchCatedraticos = async () => {
       try {
-        const response = await fetch("https://apiclasessap-lygw.onrender.com/api/catedraticos"); // Solicita datos de catedráticos
+        const response = await fetch(
+          "https://apiclasessap-lygw.onrender.com/api/catedraticos"
+        ); // Solicita datos de catedráticos
         if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
         const result = await response.json(); // Convierte la respuesta en JSON
         setCatedraticos(result || []); // Establece los datos de catedráticos en el estado
@@ -81,7 +83,9 @@ const ICC = () => {
   useEffect(() => {
     const fetchPeriodos = async () => {
       try {
-        const response = await fetch("https://apiclasessap-lygw.onrender.com/api/getPeriodos"); // Solicita datos de periodos
+        const response = await fetch(
+          "https://apiclasessap-lygw.onrender.com/api/getPeriodos"
+        ); // Solicita datos de periodos
         if (!response.ok) throw new Error("Network response was not ok"); // Maneja errores de red
         const result = await response.json(); // Convierte la respuesta en JSON
         setPeriodos(result || []); // Establece los datos de periodos en el estado
@@ -262,7 +266,6 @@ const ICC = () => {
           </div>
         </Col>
       </Row>
-
       <Row>
         <Col sm="12" className="mb-4">
           <FormGroup row className="form-group-custom">
@@ -313,7 +316,6 @@ const ICC = () => {
           {filteredData.map((blockData, index) => (
             <div key={index}>
               <h2>Bloque {blockData.bloque}</h2> {/* Muestra el bloque */}
-
               <Row>
                 {(blockData.clases || []).map((classData, idx) => (
                   <Col sm="3" key={idx} className="mb-4">
@@ -327,12 +329,11 @@ const ICC = () => {
                             : "transparent",
                       }}
                     >
-
                       <div
                         className="card-header-custom"
                         style={{
                           backgroundColor:
-                            classData.secciones &&
+                            Array.isArray(classData.secciones) &&
                             classData.secciones.some(
                               (section) =>
                                 section.hora_inicio &&
@@ -351,7 +352,7 @@ const ICC = () => {
                         <CardText>
                           {`ID: ${classData.id_clase || "No asignado"}`}
                         </CardText>
-                        {classData.secciones &&
+                        {Array.isArray(classData.secciones) &&
                         classData.secciones.length > 0 ? (
                           classData.secciones.map((section, i) => (
                             <div key={i} className="section-details">
@@ -365,7 +366,6 @@ const ICC = () => {
                           <p>No hay secciones asignadas.</p>
                         )}
                       </CardBody>
-
                     </Card>
                   </Col>
                 ))}
@@ -374,7 +374,6 @@ const ICC = () => {
           ))}
         </Col>
       </Row>
-
       <Modal isOpen={modalOpen} toggle={() => setModalOpen(!modalOpen)}>
         <ModalHeader toggle={() => setModalOpen(!modalOpen)}>
           Actualizar Clase
@@ -382,7 +381,6 @@ const ICC = () => {
 
         <ModalBody>
           <Form onSubmit={handleSubmit}>
-
             <FormGroup>
               <Label for="horaInicio">Hora de Inicio</Label>
               <Input
@@ -395,7 +393,6 @@ const ICC = () => {
                 required
               />
             </FormGroup>
-
             <FormGroup>
               <Label for="idcatedratico">Catedrático</Label>
               <Input
@@ -417,7 +414,6 @@ const ICC = () => {
                 ))}
               </Input>
             </FormGroup>
-
             <FormGroup>
               <Label for="seccion">Sección</Label>
               <Input
@@ -429,11 +425,9 @@ const ICC = () => {
                 onChange={handleInputChange}
               />
             </FormGroup>
-            
             <Button color="primary" type="submit">
               Agregar
             </Button>{" "}
-
             <Button
               color="danger"
               onClick={handleDeleteSection}
@@ -441,14 +435,12 @@ const ICC = () => {
             >
               Eliminar
             </Button>{" "}
-
             <Button
               color="success"
               onClick={handleUpdateClass} // Nuevo botón para actualizar clase
             >
               Actualizar
             </Button>
-            
           </Form>
           {errorMessage && <p className="text-danger">{errorMessage}</p>}{" "}
           {/* Muestra mensaje de error si existe */}

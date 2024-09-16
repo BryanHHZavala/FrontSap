@@ -41,7 +41,7 @@ const MEDICINA = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3300/api/carreras/MD01102/${selectedPeriodo}`
+        `https://apiclasessap-lygw.onrender.com/api/carreras/MD01102/${selectedPeriodo}`
       );
       if (!response.ok) throw new Error("Network response was not ok");
       const result = await response.json();
@@ -61,7 +61,7 @@ const MEDICINA = () => {
   useEffect(() => {
     const fetchCatedraticos = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/catedraticos");
+        const response = await fetch("https://apiclasessap-lygw.onrender.com/api/catedraticos");
         if (!response.ok) throw new Error("Network response was not ok");
         const result = await response.json();
         setCatedraticos(result || []); // Asegúrate de que `catedraticos` sea un array
@@ -76,7 +76,7 @@ const MEDICINA = () => {
   useEffect(() => {
     const fetchPeriodos = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/getPeriodos");
+        const response = await fetch("https://apiclasessap-lygw.onrender.com/api/getPeriodos");
         if (!response.ok) throw new Error("Network response was not ok");
         const result = await response.json();
         setPeriodos(result || []); // Asegúrate de que `periodos` sea un array
@@ -120,7 +120,7 @@ const MEDICINA = () => {
     if (selectedClass) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/detalle_periodo`, // Ruta actualizada
+          `https://apiclasessap-lygw.onrender.com/api/detalle_periodo`, // Ruta actualizada
           {
             method: "POST",
             headers: {
@@ -153,7 +153,7 @@ const MEDICINA = () => {
     if (selectedClass) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/actualizar_seccion`, // Ruta de la API para actualizar
+          `https://apiclasessap-lygw.onrender.com/api/actualizar_seccion`, // Ruta de la API para actualizar
           {
             method: "PUT", // Cambia a PUT si estás actualizando datos
             headers: {
@@ -188,7 +188,7 @@ const MEDICINA = () => {
     if (selectedClass && formData.seccion && selectedPeriodo) {
       try {
         const response = await fetch(
-          `http://localhost:3300/api/carreras/${selectedPeriodo}`, // Solo el periodo en la ruta
+          `https://apiclasessap-lygw.onrender.com/api/carreras/${selectedPeriodo}`, // Solo el periodo en la ruta
           {
             method: "DELETE",
             headers: {
