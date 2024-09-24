@@ -20,6 +20,8 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/styles/pemsuns.css";
 import { ToastContainer, toast } from "react-toastify";
+//siuuuuuu
+
 
 const PSICO = () => {
   const [data, setData] = useState([]);
